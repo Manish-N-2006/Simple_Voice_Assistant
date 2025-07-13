@@ -1,38 +1,58 @@
-# 🎤 Voice Assistant using Python
+# 🤖 V.A.S.P.Y. - Voice-based Assistant for Speech Processing using Python
 
-This is a simple Python-based Voice Assistant that can:
+V.A.S.P.Y. is an intelligent **desktop voice assistant** built entirely in **Python**, designed to respond to voice commands and automate a wide range of desktop and web-based tasks. From opening apps and sending WhatsApp messages to searching YouTube and speaking responses — V.A.S.P.Y. is your personal productivity companion.
 
-- Recognize voice input
-- Play YouTube videos using voice commands
-- Send WhatsApp messages (instantly or scheduled)
+> 🚧 **Note:** This application is currently under development. 
 
 ---
 
-## 🌟 Features
+## 🔤 Full Form
 
-- 🎧 Voice Recognition using speech_recognition
-- 🗣️ Text-to-Speech responses via pyttsx3
-- 📺 YouTube Search & Playback  via pywhatkit
-- 💬 Send WhatsApp messages
-  - Instantly
-  - Scheduled at a specific time
-  
+**V.A.S.P.Y.** stands for:
 
----
-
-## 🛠️ Technologies Used
-
-- Python 3.10
-- speech_recognition
-- pyttsx3
-- pywhatkit
-- Standard modules: random
+> **V**oice-based  
+> **A**ssistant for  
+> **S**peech  
+> **P**rocessing using  
+> **Py**thon
 
 ---
 
-## 📦 Installation and Dependencies
+## 🎯 Features
 
-- pip install speechrecognition pyttsx3 pywhatkit random
+- 🔊 Wake-word-based activation ("Jack" in current version)
+- 🧠 Speech recognition using Google Speech API
+- 🗣 Text-to-speech response using `pyttsx3`
+- 📂 Open and close system apps like Notepad, Calculator, CMD, etc.
+- 🌐 Open websites like YouTube, Google, ChatGPT, Amazon, GitHub, etc.
+- 🎵 Search and play YouTube videos by voice using `youtubesearchpython`
+- 💬 Send WhatsApp messages via voice using `pywhatkit`
+- ⚙️ Open Windows settings (Wi-Fi, general settings)
+- 📌 Modular code for easy feature expansion
+
+---
+
+## 🛠 Tech Stack
+
+| Module              | Purpose                               |
+|---------------------|----------------------------------------|
+| `speech_recognition`| Convert voice input to text (online)   |
+| `pyttsx3`           | Text-to-speech synthesis (offline)     |
+| `pywhatkit`         | WhatsApp messaging + YouTube playback  |
+| `webbrowser`        | Open URLs in default browser           |
+| `os`                | App launching & system control         |
+| `random`            | Randomized greeting responses          |
+| `youtubesearchpython` | YouTube search and link extraction   |
+
+---
+
+## 🖥 Requirements
+
+Install the required packages using pip:
+
+pip install speechrecognition pyttsx3 pywhatkit youtubesearchpython
+
+✅ Note: Ensure your microphone is enabled and Python is installed.
 
 ---
 
@@ -40,19 +60,32 @@ This is a simple Python-based Voice Assistant that can:
 
 - python main.py
 
+- Say "Vaspy" to activate the assistant, then give your voice command.
+
 ---
 
-## 📝 Notes
-- Ensure your microphone is connected and working
-- For WhatsApp messaging:
-  - You must be logged into WhatsApp Web
-  - Phone number must include the country code (e.g., +91xxxxxxxxxx)
+## 🔐 Notes
+- Uses Google Speech API for voice-to-text (internet required).
+- Text-to-speech and app management works offline.
+- Assistant currently responds to the wake word "Vaspy" — customizable.
 
-- Works best in a quiet environment
+---
 
+## 🔄 Upcoming Features
 
-👨‍💻 Author
+- ✅ Wake word training customization
+- ✅ GUI version using Tkinter or CustomTkinter
+- ✅ Background run mode with tray minimization
+
+---
+
+## 🧠 Project Status
+
+- 📌 This is an educational and experimental project.
+
+---
+
+🧑‍💻 Author
 Manish N
-
-
-
+B.Tech CSE with a focus on AI & Python development
+GitHub: Manish-N-2006
