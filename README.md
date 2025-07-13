@@ -85,7 +85,8 @@ pip install speechrecognition pyttsx3 pywhatkit youtubesearchpython
 
 ---
 
-🧑‍💻 Author
-Manish N
-B.Tech CSE with a focus on AI & Python development
-GitHub: Manish-N-2006
+## 🧑‍💻 Author
+
+- Manish N
+- B.Tech CSE with a focus on AI & Python development
+- GitHub: Manish-N-2006
