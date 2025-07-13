@@ -341,7 +341,7 @@ with sr.Microphone() as source:
         try:
             s=r.recognize_google(audio)
             print("You: ",s)
-            if "jack" in s.lower():               
+            if "vaspy" in s.lower():               
                 
                 print("AI: Yes, I'm listening !")
                 speak("Yes, I'm listening !")                
