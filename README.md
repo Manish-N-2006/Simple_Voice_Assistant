@@ -55,7 +55,7 @@ V.A.S.P.Y. is an intelligent **desktop voice assistant** built entirely in **Pyt
 ## 🚀 How to Run
 
 - python main.py
-- Say "Vaspy" to activate the assistant.
+- Say **Spy** to activate the assistant.
 
 ---
 
