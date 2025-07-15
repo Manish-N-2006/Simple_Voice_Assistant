@@ -4,7 +4,9 @@ import pywhatkit as kit
 import random as ra
 import os
 import webbrowser as wb
+from datetime import datetime
 from youtubesearchpython import VideosSearch
+import threading
 
 apps = {
     "notepad":       ("notepad",      "notepad.exe"),
@@ -54,7 +56,22 @@ with sr.Microphone() as source:
             except:
                 print("Error")'''
 def youtube(s):
+    print("AI: Now playing ")
+    speak("Now playing")
+    s=s.lower()
+    reple = ["spy","youtube","play","on","video","song"]
+    for i in reple:
+        s.replace(i,"")
+    s= s.strip()
+    content=s
     try:
+        kit.playonyt(content)
+
+    except Exception as e:
+        print("AI: Error - ",e)
+        speak("Sorry I couldn't play the video")
+
+    '''try:
         videos = VideosSearch(s,5)
         result = videos.result()["result"][0]
         url = result["link"]
@@ -64,7 +81,7 @@ def youtube(s):
         wb.open(url)
 
     except Exception as e:
-        print("AI: Error - ",e)
+        print("AI: Error - ",e)'''
     return
 
 
@@ -78,15 +95,15 @@ def whatsmsg():
             try:
                 #r.adjust_for_ambient_noise(source,duration=2)
                 #audio=r.listen(source)
-                #print("AI: Please Enter the Whatsapp Number with country code for India it is +91 who do you want to send Message")
-                #engine.say("Please tell the Whatsapp Number with country code for India it is +91 who do you want to send Message")
-                #engine.runAndWait()
-                phone_number=""
-                r.adjust_for_ambient_noise(source,duration=8)
-                audio=r.listen(source)
-                digit=r.recognize_google(audio).strip().replace(" ","")
-                phone_number+=digit
-                print("You:",phone_number)
+                print("AI: Please Enter the Whatsapp Number with country code for India it is +91 who do you want to send Message")
+                engine.say("Please tell the Whatsapp Number with country code for India it is +91 who do you want to send Message")
+                engine.runAndWait()
+                #phone_number=""
+                #r.adjust_for_ambient_noise(source,duration=8)
+                #audio=r.listen(source)
+                #digit=r.recognize_google(audio).strip().replace(" ","")
+                #phone_number+=digit
+                #print("You:",phone_number)
                 engine.say("Enter the Phone Number with Country code")
                 engine.runAndWait()
                 phn=input("AI: Enter the Phone Number with Country code :\n")
@@ -148,7 +165,7 @@ def whatsmsg():
                         print("AI: Message sent Successfully :)")
                         engine.say("Message sent Successfully")
                         engine.runAndWait()
-                        break
+                        return
 
                     else:
                         print("AI: Ok")
@@ -173,24 +190,32 @@ def whatsmsg():
                                 min=int(r.recognize_google(audio).strip())
                                 print("You:",min)
 
-                                kit.sendwhatmsg(phn,msg,hr,min)
-                                print("AI: Message sent Successfully :)")
-                                engine.say("Message sent Successfully")
-                                engine.runAndWait()
-                                break
+                                kit.sendwhatmsg(phn,msg,hr,min)                             
+                                
+                        
                             except:
                                 print("Error")
                                 engine.say("Error...")
                                 engine.runAndWait()
                                 continue
+                            threading.Thread(target=whatsmsg, daemon=True).start()
+                            print("AI: Got it! The message is queued; I'll keep listening.")
+                            speak("Your WhatsApp message is scheduled.")
                 
                     
                 except:
                     print("Error")
                     engine.say("Error...")
                     engine.runAndWait()
-                    continue   
+                    continue 
+                  
+
+
+    threading.Thread(target=whatsmsg, daemon=True).start()
+    print("AI: Got it! The message is queued; I'll keep listening.")
+    speak("Your WhatsApp message is scheduled.")
     return
+
 
 def speak(text):
     engine.say(text)
@@ -227,22 +252,22 @@ def close_app(s):
             return 
             
 
-def main():
-    print("Inside main")
-    r=sr.Recognizer()
+def main(s):
+    #print("Inside main")
+    #r=sr.Recognizer()
 
-    with sr.Microphone() as source:
+    #with sr.Microphone() as source:
         
         while True:
-            r.adjust_for_ambient_noise(source,duration=2)
+            #r.adjust_for_ambient_noise(source,duration=2)
             
-            print("Listening ...")
-            audio=r.listen(source)
-            print("Listened ...")
+            #print("Listening ...")
+            #audio=r.listen(source)
+            #print("Listened ...")
             
             try:
-                s=r.recognize_google(audio)
-                print("You:",s)
+                #s=r.recognize_google(audio)
+                #print("You:",s)
                 
                 if "close" in s.lower():
                     close_app(s)
@@ -250,10 +275,11 @@ def main():
                 
                 elif "song" in s.lower() or "on youtube" in s.lower():
                     youtube(s)
-                    return                    
+                    return                   
                 
                 elif "whatsapp" in s.lower() or "message" in s.lower():
                     whatsmsg()
+                    return
 
                 elif "open youtube" in s.lower():
                     wb.open("https://www.youtube.com")
@@ -307,55 +333,67 @@ def main():
 
                 elif "open" in s.lower() :
                     open_app(s)
-                    return
-                
+                    return               
                             
                 
                 elif "end" in s.lower() or "bye" in s.lower() or "exit" in s.lower():
                     speak("Good Bye!")
                     break            
                 else:
-                    speak("Sorry this function is not available")
+                    speak("Sorry say again")
                     print("Error")
-                    continue
+                    return
 
 
             except:
                 print("AI: Sorry I can't understand, Say again.")
-                speak("Sorry I can't understand, Say again.")
-                
+                speak("Sorry I can't understand, Say again.")              
         
+
+    
 r=sr.Recognizer()
-with sr.Microphone() as source:
-    rep=["Hi! Nice to meet you","Good to see you","Hello!, Have a great day","Hi! Whatsapp!"]
-    rp=ra.choice(rep)
-    print("AI: ",rp)
-    speak(rp)
+rep=["Hi! Nice to meet you","Good to see you","Hello!, Have a great day","Hi! Whatsapp!"]
+rp=ra.choice(rep)
+print("AI: ",rp)
+speak(rp)
+
+def wakeup():
     while True:
-            
-        r.adjust_for_ambient_noise(source,duration=2)
-        print("Listening ...")
-        audio=r.listen(source)
-        print("Listened ...")
+        with sr.Microphone() as source:
+             
+            r.adjust_for_ambient_noise(source,duration=2)
+            print("Listening ...")
+            audio=r.listen(source)
+            print("Listened ...")
 
-        try:
-            s=r.recognize_google(audio)
-            print("You: ",s)
-            if "vaspy" in s.lower():               
+            try:
+                s=r.recognize_google(audio)
+                print("You: ",s)
+
+                if "spy" in s.lower():                 
+                    s=s.replace("vaspy","")              
+                    main(s)
+
+                elif "date" in s.lower() or "time" in s.lower():
+                    now = datetime.now()
+                    print("AI: Today's date is",now.date(),"\n Time is ",now.time())
+                    speak(f"Today's date is {now.date()} and time is {now.time()}")
+
+                elif "your name" in s.lower():
+                    print("AI: My name is VASPY !!, \n" 
+                    " VASPY stands for Voice-based Assistant for Speech Processing using Python, " \
+                    "You can call me VAS for any help")
+                    speak("My name is VASPY !!, "
+                    "VASPY stands for Voice-based Assistant for Speech Processing using Python," \
+                    "You can call me SPY for any help ")
+
                 
-                print("AI: Yes, I'm listening !")
-                speak("Yes, I'm listening !")                
-                main()
-            elif "exit" in s.lower() or "bye" in s.lower():
-                break
-            
 
-        except:
-            print("Error in main")
+                elif "exit" in s.lower() or "bye" in s.lower():
+                    break
+                
 
-
-
-
-        
+            except:
+                print("Error in main")      
 
  
